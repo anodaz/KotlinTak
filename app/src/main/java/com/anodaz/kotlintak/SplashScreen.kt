@@ -1,12 +1,10 @@
 package com.anodaz.kotlintak
 
 import android.content.Intent
-
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.support.v7.app.AppCompatActivity
 import gr.net.maroulis.library.EasySplashScreen
-
 
 
 class SplashScreen : AppCompatActivity() {
@@ -17,8 +15,7 @@ private val Timerr=4000
         val easySplashScreenView = EasySplashScreen(this)
                 .withFullScreen()
                 .withSplashTimeOut(4000)
-                .withBackgroundResource(android.R.color.holo_blue_dark)
-                .withHeaderText("Kotlin Tak")
+                .withBackgroundResource(android.R.color.holo_blue_dark).withHeaderText("Kotlin Tak")
                 .withFooterText("Copyright 2018")
                 .withBeforeLogoText("Created By ANODAZ")
                 .withLogo(R.drawable.icon)
