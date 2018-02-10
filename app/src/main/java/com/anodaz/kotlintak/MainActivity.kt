@@ -3,6 +3,7 @@ package com.anodaz.kotlintak
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,11 +18,14 @@ class MainActivity : AppCompatActivity() {
     var Cpl2=0
     var iswin=false
     var contwin=0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         textView2.setText("Player 1 : X")
         textView2.setBackgroundResource(R.color.pp1)
+        btL.setBackgroundResource(R.drawable.defult)
+        btL.visibility= View.INVISIBLE
         bt1.setOnClickListener({
             check(1,bt1)
         })
@@ -51,6 +55,8 @@ class MainActivity : AppCompatActivity() {
         })
         GNext.setOnClickListener({
             if((iswin || contwin==9) && contwin!=0){
+                btL.setBackgroundResource(R.drawable.defult)
+                btL.visibility= View.INVISIBLE
                 enablB()
                 pl1.clear()
                 pl2.clear()
@@ -68,6 +74,8 @@ class MainActivity : AppCompatActivity() {
 
         })
         PlayA.setOnClickListener({
+            btL.setBackgroundResource(R.drawable.defult)
+            btL.visibility= View.INVISIBLE
                 enablB()
                 pl1.clear()
                 pl2.clear()
@@ -80,6 +88,8 @@ class MainActivity : AppCompatActivity() {
                 Tp2.setText("P2="+Cpl2)
         })
         btC.setOnClickListener({
+            btL.setBackgroundResource(R.drawable.defult)
+            btL.visibility= View.INVISIBLE
             finish();
         })
     }
@@ -116,14 +126,46 @@ class MainActivity : AppCompatActivity() {
     }
     fun iswin(bl:ArrayList<Int>): Boolean {
         when {
-            bl.containsAll(mutableListOf(1, 2, 3)) ||
-                    bl.containsAll(mutableListOf(4, 5, 6)) ||
-                    bl.containsAll(mutableListOf(7, 8, 9)) ||
-                    bl.containsAll(mutableListOf(1, 4, 7)) ||
-                    bl.containsAll(mutableListOf(2, 5, 8)) ||
-                    bl.containsAll(mutableListOf(3, 6, 9)) ||
-                    bl.containsAll(mutableListOf(3, 5, 7)) ||
-                    bl.containsAll(mutableListOf(1, 5, 9)) ->return true
+            bl.containsAll(mutableListOf(1, 2, 3)) -> {
+                btL.setBackgroundResource(R.drawable.bt123)
+                btL.visibility= View.VISIBLE
+                return true
+            }
+            bl.containsAll(mutableListOf(4, 5, 6)) -> {
+                btL.setBackgroundResource(R.drawable.bt456)
+                btL.visibility= View.VISIBLE
+                return true
+            }
+            bl.containsAll(mutableListOf(7, 8, 9)) -> {
+                btL.setBackgroundResource(R.drawable.bt789)
+                btL.visibility= View.VISIBLE
+                return true
+            }
+            bl.containsAll(mutableListOf(1, 4, 7)) -> {
+                btL.setBackgroundResource(R.drawable.bt147)
+                btL.visibility= View.VISIBLE
+                return true
+            }
+            bl.containsAll(mutableListOf(2, 5, 8)) -> {
+                btL.setBackgroundResource(R.drawable.bt258)
+                btL.visibility= View.VISIBLE
+                return true
+            }
+            bl.containsAll(mutableListOf(3, 6, 9)) -> {
+                btL.setBackgroundResource(R.drawable.bt369)
+                btL.visibility= View.VISIBLE
+                return true
+            }
+            bl.containsAll(mutableListOf(3, 5, 7)) -> {
+                btL.setBackgroundResource(R.drawable.bt357)
+                btL.visibility= View.VISIBLE
+                return true
+            }
+            bl.containsAll(mutableListOf(1, 5, 9)) -> {
+                btL.setBackgroundResource(R.drawable.bt159)
+                btL.visibility= View.VISIBLE
+                return true
+            }
             else ->return false
         }
     }
@@ -135,6 +177,7 @@ class MainActivity : AppCompatActivity() {
             dialogInterface, i ->
         })
         simpleAlert.show()
+        textView2.setBackgroundResource(R.color.fin)
         textView2.setText("Player "+Pl+" Win")
         Tp.setText("P"+Pl+"="+Cc)
         iswin=true
@@ -157,6 +200,10 @@ class MainActivity : AppCompatActivity() {
             pl2.add(id)
         }
         Bt.isEnabled=false
+        if (contwin==9){
+            textView2.setText("Fin Game")
+            textView2.setBackgroundResource(R.color.fin)
+        }
         if (iswin(pl1)){
             Cpl1++
             winner(Cpl1,1,Tp1)
@@ -165,5 +212,7 @@ class MainActivity : AppCompatActivity() {
             Cpl2++
             winner(Cpl2,2,Tp2)
         }
+
+
     }
 }
